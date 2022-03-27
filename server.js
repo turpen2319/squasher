@@ -7,13 +7,17 @@ const session = require('express-session');
 const passport = require('passport');
 const methodOverride = require('method-override'); //for PUT and DELETE crud
 
-require('dotenv').config();
+//this lets us "process" the KEY=VALUE pairs in the .env
+require('dotenv').config(); 
 
+//these config processes depend upon key=value pairs in the .env
 require('./config/database.js'); //connecting to/setting up database in this file
-require('./config/passport.js');
+require('./config/passport.js'); //just need to run the code in this file...we're not exporting anything from it (same with our db config)
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const questionsRouter = require('./routes/questions');
+const answersRouter = require('./routes/answers');
 
 var app = express();
 
@@ -31,9 +35,19 @@ app.use(session({
   secret: process.env.SECRET,
   resave: false, //these second two are just preventing warnings
   saveUninitialized: true
-}))
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+// keep this middleware BELOW passport middleware cause passport is giving us the req.user property
+app.use(function (req, res, next) {
+  res.locals.user = req.user;
+  next();
+});
+
 
 app.use('/', indexRouter);
+app.use('/questions', questionsRouter);
+app.use('/', answersRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler

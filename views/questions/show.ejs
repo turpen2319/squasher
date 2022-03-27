@@ -1,0 +1,28 @@
+<%- include('../partials/header') %>
+<div id="show-container">
+    <div class="question-container list">
+        <div class="question-contents">
+            <div class="question-form">
+                <p class="question-title list-title"><%=question.title%></p>
+                <p class="question-text list-content"><%=question.content%></p>
+                
+            </div>
+        </div>
+    </div>
+    <div class="reply-list">
+        <% question.replies.forEach((reply) => { %>
+            <p><img src="<%=reply.userAvatar%>" alt="commenter's avatar"><span><%=reply.userName%></span><%=reply.content%></p>
+       <% }) %>
+    </div>
+    <!-- New Reply -->
+    <div id="new-reply" class="reply-container">
+        <form class="reply-contents" action="/questions/<%=question._id%>/answers" method="POST">
+            <textarea name="content" class="reply-text" cols="100" rows="8" placeholder="myCode.isWorking = false;"></textarea>
+            <button id="post-button" class="btn btn-outline-success my-2 my-sm-0" type="submit">Answer</button>
+        </form>
+    </div>
+</div>
+
+
+
+<%- include('../partials/footer') %>

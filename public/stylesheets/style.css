@@ -1,8 +1,93 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+.navbar {
+  justify-content: space-between;
+}
+
+#search-bar {
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 15px;
+}
+
+.question-container, .reply-container {
+  display: flex;
+  justify-content: center;
+  
+}
+
+#search-bar > input, #search-bar > button{
+  font-size: 3vw;
+  width: fit-content;
+}
+
+.question-contents, .reply-contents {
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+  max-width: 800px;
+}
+
+.question-title {
+  padding: 8px 20px;
+  margin-top: 5px;
+  border-radius: 20px;
+  border-end-start-radius: 0px;
+  border-end-end-radius: 0px;
+  /* padding-left: 20px; */
+}
+
+.question-text, .reply-text {
+  padding: 15px;
+  margin: 2px 0px 5px;
+  border-radius: 30px;
+  border-start-start-radius: 0px;
+  border-start-end-radius: 0px;
+  border-end-start-radius: 10px;
+  /* customize scrollbar */
+}
+
+#post-button {
+  width: fit-content;
+  font-size: 2vmin;
+  border-radius: 10px;
+  margin-bottom: 10px!important;
+  margin-top: 0px!important;
+  /*               ^^ this might break something in bootstrap */
+}
+
+.list-title {
+  border: solid 2px;
+  margin: 15px 0 0;
+}
+
+.list-content {
+  border: solid 1px;
+  height: 150px;
+  overflow: hidden;
+}
+
+.list {
+  transition: all 0.2s;
+}
+.list:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+}
+
+#show-container {
+  height: 93vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#new-reply {
+  position: fixed;
+  bottom: 0;
 }

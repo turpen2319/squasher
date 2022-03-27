@@ -1,0 +1,30 @@
+<%- include('../partials/header') -%>
+<!-- search bar -->
+<form id="search-bar" class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search Squasher..." aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
+
+<!-- new question -->
+<div class="question-container">
+    <form class="question-contents" action="/questions" method="POST">
+        <input class="question-title" type="text" name="title" placeholder="Title your bug...">
+        <textarea name="content" class="question-text" cols="100" rows="8" placeholder="myCode.isWorking = false;"></textarea>
+        <button id="post-button" class="btn btn-outline-success my-2 my-sm-0" type="submit">Post Question</button>
+    </form>
+</div>
+
+<!-- questions thread -->
+<% questions.forEach((q) => { %>
+    <div class="question-container list">
+        <div class="question-contents">
+            <div class="question-form">
+                <p class="question-title list-title"><a href="/questions/<%=q._id%>"><%=q.title%></a></p>
+                <p class="question-text list-content"><%=q.content%></p>
+            </div>
+        </div>
+    </div>
+<% }) %>
+
+
+<%- include('../partials/footer') -%>
