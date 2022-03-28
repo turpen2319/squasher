@@ -5,6 +5,8 @@ module.exports = {
     create,
     show,
     delete: deleteQuestion,
+    edit,
+    update
 }
 
 function index(req, res) {
@@ -37,19 +39,36 @@ function show(req, res) {
 }
 
 async function deleteQuestion(req, res) {
-   const question = await Question.findById(req.params.id);
+    try {
+       const question = await Question.findById(req.params.id);
+       await question.remove()
 
-   await question.remove()
-
-   try {
        res.redirect(`/questions`)
    } catch (error) {
        console.log(error)
    }
 }
 
-// async function update(req, res) {
-//     const question = await Question.findById(req.params.id);
+async function edit(req, res) {
+    try {
+        const question = await Question.findById(req.params.id);
+        res.render('questions/update', { question })   
+    } catch (error) {
+        console.log(error)
+    }
+}
 
+async function update(req, res) {
+    try {
+        const question = await Question.findById(req.params.id);
+        question.title = req.body.title;
+        question.content = req.body.content;
+        question.isSolved = req.body.isSolved;
 
-// }
+        await question.save(); //not sure if this works
+
+        res.redirect(`/questions/${question._id}`)   
+    } catch (error) {
+        console.log(error)
+    }
+}

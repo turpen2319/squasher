@@ -4,6 +4,7 @@ const questionsCtrl = require('../controllers/questions');
 
 router.get('/', questionsCtrl.index);
 router.get('/:id', questionsCtrl.show);
+router.get('/:id/edit', questionsCtrl.edit);
 
 router.post('/', questionsCtrl.create);
 

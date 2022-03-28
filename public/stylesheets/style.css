@@ -123,6 +123,8 @@ a {
 
 .answer {
   grid-column: 2/3;
+  padding-left: 5px;
+  padding-top: 5px;
 }
 
 .answer span {
