@@ -3,7 +3,8 @@ const Question = require('../models/question');
 module.exports = {
     index,
     create,
-    show
+    show,
+    delete: deleteQuestion,
 }
 
 function index(req, res) {
@@ -34,3 +35,21 @@ function show(req, res) {
         res.render('questions/show', { question })
     })
 }
+
+async function deleteQuestion(req, res) {
+   const question = await Question.findById(req.params.id);
+
+   await question.remove()
+
+   try {
+       res.redirect(`/questions`)
+   } catch (error) {
+       console.log(error)
+   }
+}
+
+// async function update(req, res) {
+//     const question = await Question.findById(req.params.id);
+
+
+// }

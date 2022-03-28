@@ -16,4 +16,4 @@ async function create(req, res) {
     question.save((err) => {
         res.redirect(`/questions/${question._id}`)
     })
-}
+} 

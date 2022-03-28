@@ -1,23 +1,37 @@
 <%- include('../partials/header') %>
 <div id="show-container">
-    <div class="question-container list">
+    <div id="show-question" class="question-container list">
         <div class="question-contents">
             <div class="question-form">
-                <p class="question-title list-title"><%=question.title%></p>
+                <div class="title-container">
+                    <img id="show-question-kebab" src="/images/kebab-icon.png" alt="kebab-icon"> 
+                    <p class="question-title list-title"><%=question.title%></p>
+                </div>
                 <p class="question-text list-content"><%=question.content%></p>
                 
             </div>
         </div>
     </div>
-    <div class="reply-list">
+    <div class="answer-list">
+        <div class="kebab-menu-items">
+            <form action="/questions/<%=question._id%>?_method=PUT" method="POST">
+                <button type="submit">Edit Question</button>
+            </form>
+            <form action="/questions/<%=question._id%>?_method=DELETE" method="POST">
+                <button type="submit">Delete Question</button>
+            </form>
+        </div>
         <% question.replies.forEach((reply) => { %>
-            <p><img src="<%=reply.userAvatar%>" alt="commenter's avatar"><span><%=reply.userName%></span><%=reply.content%></p>
+            <div class="answer-container">
+                <img src="<%=reply.userAvatar%>" alt="commenter's avatar">
+                <p class="answer"><span><%=reply.userName%></span><%=reply.content%></p>
+            </div>
        <% }) %>
     </div>
     <!-- New Reply -->
     <div id="new-reply" class="reply-container">
         <form class="reply-contents" action="/questions/<%=question._id%>/answers" method="POST">
-            <textarea name="content" class="reply-text" cols="100" rows="8" placeholder="myCode.isWorking = false;"></textarea>
+            <textarea name="content" class="reply-text" cols="100" rows="3" placeholder="myCode.isWorking = false;"></textarea>
             <button id="post-button" class="btn btn-outline-success my-2 my-sm-0" type="submit">Answer</button>
         </form>
     </div>
