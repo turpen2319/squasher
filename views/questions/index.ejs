@@ -6,13 +6,15 @@
 </form>
 
 <!-- new question -->
-<div class="question-container">
-    <form class="question-contents" action="/questions" method="POST">
-        <input class="question-title" type="text" name="title" placeholder="Title your bug...">
-        <textarea name="content" class="question-text" cols="100" rows="8" placeholder="myCode.isWorking = false;"></textarea>
-        <button id="post-button" class="btn btn-outline-success my-2 my-sm-0" type="submit">Post Question</button>
-    </form>
-</div>
+<% if (user) {%>
+    <div class="question-container">
+        <form class="question-contents" action="/questions" method="POST">
+            <input class="question-title" type="text" name="title" placeholder="Title your bug...">
+            <textarea name="content" class="question-text" cols="100" rows="8" placeholder="myCode.isWorking = false;"></textarea>
+            <button id="post-button" class="btn btn-outline-success my-2 my-sm-0" type="submit">Post Question</button>
+        </form>
+    </div>
+<%}%>
 
 <!-- questions thread -->
 <% questions.forEach((q) => { %>

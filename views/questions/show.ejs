@@ -4,7 +4,11 @@
         <div class="question-contents">
             <div class="question-form">
                 <div class="title-container">
-                    <img id="show-question-kebab" src="/images/kebab-icon.png" alt="kebab-icon"> 
+                    <%if(user && user._id.equals(question.user)) {%>
+                        <img id="show-question-kebab" src="/images/kebab-icon.png" alt="kebab-icon"> 
+                    <%} else {%>    
+                        <img class="hide-kebab" id="show-question-kebab" src="/images/kebab-icon.png" alt="kebab-icon"> 
+                    <%}%>
                     <p class="question-title list-title"><%=question.title%></p>
                 </div>
                 <p class="question-text list-content"><%=question.content%></p>
@@ -12,7 +16,11 @@
             </div>
         </div>
     </div>
-    <div class="answer-list">
+    <%if(user) {%>
+    <div class="answer-list">    
+    <%} else {%>
+    <div class="answer-list hide-answer-form">
+    <%}%>
         <div class="kebab-menu-items">
             <form action="/questions/<%=question._id%>/edit" method="GET">
                 <button type="submit">Edit Question</button>
@@ -24,26 +32,32 @@
         <% question.replies.forEach((reply) => { %>
             <div class="answer-container">
                 <img id="avatar-img" src="<%=reply.userAvatar%>" alt="commenter's avatar">
-                <% if (reply.isBestAnswer) { %> 
-                    <img class="best-answer-boot show-boot" src="/images/boot-icon-green.png" alt="best answer boot icon">
-                <%}%>
                 
-                <% if (user && user._id.equals(question.user)) { %>
+                <% if (reply.isBestAnswer && user && user._id.equals(question.user)) { %>
+                    <form action="/questions/<%=question._id%>/answers/<%=reply._id%>?_method=PUT" method="POST">
+                        <input type="image" class="best-answer-boot show-boot" src="/images/boot-icon-green.png" alt="best answer boot icon">
+                    </form>
+                <% } else if (user && user._id.equals(question.user)) {%>
                     <form action="/questions/<%=question._id%>/answers/<%=reply._id%>?_method=PUT" method="POST">
                         <input type="image" class="best-answer-boot" src="/images/boot-icon-green.png" alt="best answer boot icon">
                     </form>
+                <% } else if (reply.isBestAnswer) { %>
+                    <img class="best-answer-boot show-boot" src="/images/boot-icon-green.png" alt="best answer boot icon">
                 <% } %>
+
                 <p class="answer"><span><%=reply.userName%></span><%=reply.content%></p>
             </div>
        <% }) %>
     </div>
     <!-- New Reply -->
-    <div id="new-reply" class="reply-container">
-        <form class="reply-contents" action="/questions/<%=question._id%>/answers" method="POST">
-            <textarea name="content" class="reply-text" cols="100" rows="3" placeholder="myCode.isWorking = false;"></textarea>
-            <button id="post-button" class="btn btn-outline-success my-2 my-sm-0" type="submit">Answer</button>
-        </form>
-    </div>
+    <%if (user) {%>
+        <div id="new-reply" class="reply-container">
+            <form class="reply-contents" action="/questions/<%=question._id%>/answers" method="POST">
+                <textarea name="content" class="reply-text" cols="100" rows="3" placeholder="myCode.isWorking = false;"></textarea>
+                <button id="post-button" class="btn btn-outline-success my-2 my-sm-0" type="submit">Answer</button>
+            </form>
+        </div>
+    <%}%>
 </div>
 
 
