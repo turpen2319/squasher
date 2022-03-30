@@ -23,7 +23,16 @@
         </div>
         <% question.replies.forEach((reply) => { %>
             <div class="answer-container">
-                <img src="<%=reply.userAvatar%>" alt="commenter's avatar">
+                <img id="avatar-img" src="<%=reply.userAvatar%>" alt="commenter's avatar">
+                <% if (reply.isBestAnswer) { %> 
+                    <img class="best-answer-boot show-boot" src="/images/boot-icon-green.png" alt="best answer boot icon">
+                <%}%>
+                
+                <% if (user && user._id.equals(question.user)) { %>
+                    <form action="/questions/<%=question._id%>/answers/<%=reply._id%>?_method=PUT" method="POST">
+                        <input type="image" class="best-answer-boot" src="/images/boot-icon-green.png" alt="best answer boot icon">
+                    </form>
+                <% } %>
                 <p class="answer"><span><%=reply.userName%></span><%=reply.content%></p>
             </div>
        <% }) %>

@@ -19,8 +19,18 @@
     <div class="question-container list">
         <div class="question-contents">
             <div class="question-form">
-                <p class="question-title list-title"><a href="/questions/<%=q._id%>"><%=q.title%></a></p>
-                <p class="question-text list-content"><%=q.content%></p>
+                <div class="title-container question-title list-title">
+                    <img class="profile-img" src="<%=q.userAvatar%>" alt="question owner's avatar">
+                    <% if(q.isSolved) { %>
+                        <img class="boot-icon" src="/images/boot-icon-green.png" alt="bug-resolved-icon">
+                    <% } else { %>
+                        <img class ="bug-icon" src="/images/bug-icon-cleaned.png" alt="bug-icon">
+                    <% } %> 
+                    <p><span class="profile-info-span"><%=q.userName%></span><a href="/questions/<%=q._id%>"><%=q.title%></a></p>
+                </div>
+                <div class="content-container">
+                    <p class="question-text list-content"><%=q.content%></p>
+                </div>
             </div>
         </div>
     </div>
