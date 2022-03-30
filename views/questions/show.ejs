@@ -23,10 +23,10 @@
     <%}%>
         <div class="kebab-menu-items">
             <form action="/questions/<%=question._id%>/edit" method="GET">
-                <button type="submit">Edit Question</button>
+                <button class="edit-btn" type="submit">Edit Question</button>
             </form>
             <form action="/questions/<%=question._id%>?_method=DELETE" method="POST">
-                <button type="submit">Delete Question</button>
+                <button class="delete-btn" type="submit">Delete Question</button>
             </form>
         </div>
         <% question.replies.forEach((reply) => { %>

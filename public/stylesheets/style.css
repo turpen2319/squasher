@@ -1,6 +1,6 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  color: whitesmoke;
+  color: rgb(200,200,200);
   background-color: rgb(40,40,40);
 }
 
@@ -10,6 +10,15 @@ a {
 
 .navbar {
   justify-content: space-between;
+  background-color: rgb(80,80,80)!important;
+}
+
+a.navbar-brand {
+  color: #00B7FF!important;
+}
+
+button.navbar-toggler {
+  border: none;
 }
 
 #search-bar {
@@ -79,7 +88,7 @@ a {
   transition: all 0.2s;
 }
 .list:hover {
-  cursor: pointer;
+  
   transform: scale(1.02);
 }
 
@@ -214,6 +223,45 @@ a {
   top: auto;
 }
 
+.edit-btn, .delete-btn {
+  display:inline-block;
+  padding:0.35em 1.2em;
+  border:0.1em solid rgb(200, 200, 200);
+  margin:0 0.3em 0.3em 0;
+  border-radius:0.12em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-weight:300;
+  text-align:center;
+  transition: all 0.2s;
+  background-color: transparent;
+  margin: 10px;
+}
+
+.edit-btn {
+  color: #ff9d48;
+}
+
+.delete-btn {
+  color: #ff4848;
+}
+
+.edit-btn:hover{
+  color:rgb(200,200,200);
+  background-color: #ff9d48;;
+  cursor: pointer;
+  border-color: #ff9d48;
+  transform: scale(1.1);
+} 
+
+.delete-btn:hover{
+  color:rgb(200,200,200);
+  background-color: #ff4848;
+  cursor: pointer;
+  border-color: #ff4848;
+  transform: scale(1.2);
+}
+
 .content-info > img {
   width: 30px;
   height: 30px;
@@ -233,6 +281,7 @@ a {
 
 .profile-info-span {
   padding-right: 8px;
+  color: rgb(167 138 255);
 }
 
 .title-container > p {
@@ -243,8 +292,10 @@ a {
 
 .list-title {
   border: solid 2px;
+  border-color: rgb(200,200,200);
   margin: 15px 0 0;
   padding: 8px 20px 8px 15px!important;
+  color:#00B7FF
 }
 
 

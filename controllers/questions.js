@@ -10,7 +10,7 @@ module.exports = {
 }
 
 function index(req, res) {
-    Question.find({}, function(err, questions) {
+    Question.find({}).sort({createdAt: 'desc'}).exec(function(err, questions) {
         res.render('questions/index', { questions });
     })
 }
