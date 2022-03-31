@@ -2,6 +2,7 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   color: rgb(200,200,200);
   background-color: rgb(40,40,40);
+  overflow-x: hidden;
 }
 
 a {
@@ -106,7 +107,7 @@ button.navbar-toggler {
 #new-reply {
   position: fixed;
   bottom: 0;
-  
+  background: rgb(40,40,40);
 }
 
 .answer-list {
@@ -123,8 +124,8 @@ button.navbar-toggler {
 }
 
 .answer-container {
-  width: 90vw;
-  max-width: 900px;
+  width: 86vw;
+  max-width: 875px;
   display: grid;
   grid-template-columns: 30px auto;
   grid-template-rows: 30px auto;
@@ -296,6 +297,10 @@ button.navbar-toggler {
   margin: 15px 0 0;
   padding: 8px 20px 8px 15px!important;
   color:#00B7FF
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 
