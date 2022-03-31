@@ -299,8 +299,14 @@ button.navbar-toggler {
   color:#00B7FF
 }
 
-::-webkit-scrollbar-track {
+/* .answer-list::-webkit-scrollbar {
   background: transparent;
+  width: 0.5em;
+} */ */
+
+.answer-list::-webkit-scrollbar-thumb {
+  background-color: rgb(80,80,80);
+  border-radius: 8px;
 }
 
 
