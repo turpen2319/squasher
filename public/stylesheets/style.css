@@ -223,7 +223,13 @@ button.navbar-toggler {
   top: auto;
 }
 
-.edit-btn, .delete-btn, #hangup-button {
+.live-index-container {
+  display: flex;
+  justify-content: center;
+  align-content: flex-start;
+}
+
+.edit-btn, .delete-btn, #hangup-button, #open-room-btn {
   display:inline-block;
   padding:0.35em 1.2em;
   border:0.1em solid rgb(200, 200, 200);
@@ -238,6 +244,11 @@ button.navbar-toggler {
   margin: 10px;
 }
 
+#open-room-btn {
+  color: #00B7FF;
+  margin-top: 50px;
+
+}
 .edit-btn {
   color: #ff9d48;
 }
@@ -246,6 +257,13 @@ button.navbar-toggler {
   color: #ff4848;
 }
 
+#open-room-btn:hover{
+  color:rgb(200,200,200);
+  background-color: #00B7FF;;
+  cursor: pointer;
+  border-color: #00B7FF;
+  transform: scale(1.1);
+} 
 .edit-btn:hover{
   color:rgb(200,200,200);
   background-color: #ff9d48;;
@@ -298,14 +316,13 @@ button.navbar-toggler {
   color:#00B7FF
 }
 
-#local_video {
-  width: 10vw;
+#open-room-btn {
 
 }
 
 #received_video {
   width: 100vw;
-  max-height: 800px;
+  max-height: 780px;
   align-self: flex-start;
 }
 
