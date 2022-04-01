@@ -26,7 +26,7 @@ var server = http.createServer(app);
  * Pass server to socket io so that it knows what server we're using so that it can interact with the server.
  */
 const io = socketIO(server); //maybe export io later...but to where?
-
+ 
 io.on('connection', socket => { //listening for new connections
   //socket.emit('chat-message', 'Hello World') //when a client connects, we sent back a string called 'chat-message' with the text 'hello world'
   
@@ -37,8 +37,20 @@ io.on('connection', socket => { //listening for new connections
     socket.to(roomId).emit('user-connected', userId) //send sdp to room...the other user will listen to this event and will have access to your sdp in that listener
   })
 
-  socket.on('sent-chat-message', message => { //listening to our sent-chat-message event that was emitted from client side
-    socket.broadcast.emit('chat-message', message) //we emit this 'chat-message' cause that's what even we're listening to on client side
+  socket.on('video-offer', (sdp, roomId) => {
+    socket.to(roomId).emit('recieved-video-offer', sdp);
+  })
+
+  socket.on('new-ice-candidate', (sdp, roomId) => {
+    socket.to(roomId).emit('new-remote-ice-candidate', sdp);
+  })
+
+  socket.on('answer-to-offer', (sdp, roomId) => {
+    socket.to(roomId).emit('answer-recieved', sdp);
+  })
+
+  socket.on('sent-chat-message', (message, roomId) => { //listening to our sent-chat-message event that was emitted from client side
+    socket.to(roomId).emit('chat-message', message) //we emit this 'chat-message' cause that's what even we're listening to on client side
   })
 })
 
