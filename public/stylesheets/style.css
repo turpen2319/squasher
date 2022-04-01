@@ -224,7 +224,13 @@ button.navbar-toggler {
   top: auto;
 }
 
-.edit-btn, .delete-btn {
+.live-index-container {
+  display: flex;
+  justify-content: center;
+  align-content: flex-start;
+}
+
+.edit-btn, .delete-btn, #hangup-button, #open-room-btn {
   display:inline-block;
   padding:0.35em 1.2em;
   border:0.1em solid rgb(200, 200, 200);
@@ -239,14 +245,26 @@ button.navbar-toggler {
   margin: 10px;
 }
 
+#open-room-btn {
+  color: #00B7FF;
+  margin-top: 50px;
+
+}
 .edit-btn {
   color: #ff9d48;
 }
 
-.delete-btn {
+.delete-btn, #hangup-button {
   color: #ff4848;
 }
 
+#open-room-btn:hover{
+  color:rgb(200,200,200);
+  background-color: #00B7FF;;
+  cursor: pointer;
+  border-color: #00B7FF;
+  transform: scale(1.1);
+} 
 .edit-btn:hover{
   color:rgb(200,200,200);
   background-color: #ff9d48;;
@@ -255,7 +273,7 @@ button.navbar-toggler {
   transform: scale(1.1);
 } 
 
-.delete-btn:hover{
+.delete-btn:hover, #hangup-button:hover {
   color:rgb(200,200,200);
   background-color: #ff4848;
   cursor: pointer;
@@ -299,17 +317,83 @@ button.navbar-toggler {
   color:#00B7FF
 }
 
-/* .answer-list::-webkit-scrollbar {
-  background: transparent;
-  width: 0.5em;
-} */ */
+#received_video {
+  width: 100vw;
+  max-height: 780px;
+  align-self: flex-start;
+}
 
-.answer-list::-webkit-scrollbar-thumb {
-  background-color: rgb(80,80,80);
-  border-radius: 8px;
+.live-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+}
+
+.chat-container {
+  width: 80%;
+}
+
+.message-thread {
+  width: 100%;
+}
+
+.new-message-container {
+  width: 100%;
+}
+
+.connect-btn, #send-button {
+  display:inline-block;
+  padding:0.3em 1em;
+  border:0.1em solid rgb(200, 200, 200);
+  margin:0 0.3em 0.3em 0;
+  border-radius:0.12em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-weight:300;
+  text-align:center;
+  transition: all 0.2s;
+  background-color: transparent;
+  margin: 10px;
+  color: rgb(1, 175, 94)
+}
+
+#send-button {
+  margin-left: 0;
+  padding: 0.35em 1em;
+  border-end-end-radius: 5px;
+  border-start-end-radius: 12px;
+}
+
+.connect-btn:hover, #send-button:hover {
+  color:rgb(200,200,200);
+  background-color: rgb(1, 175, 94);
+  cursor: pointer;
+  border-color: rgb(1, 175, 94);
+  transform: scale(1.1);
 }
 
 
+.sent-msg {
+  text-align: right;
+  color:#00B7FF;
+}
+
+#send-container {
+  text-align: center;
+}
+
+#message-input {
+  border-end-start-radius: 10px;
+  border-start-start-radius: 5px;
+  background-color: lightgray;
+  color: rgb(40,40,40);
+  border-color: transparent;
+  width: 50%;
+  padding: 4px;
+  padding-left: 8px;
+}
 
 
 @media only screen and (max-width: 600px) {
