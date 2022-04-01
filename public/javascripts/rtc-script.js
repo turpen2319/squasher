@@ -40,7 +40,9 @@ function kickDebugee() {
 
 
 const mediaConstraints = {
-    audio: true,
+    audio: {
+        echoCancellation: true
+    },
     video: true
 }
 
@@ -55,12 +57,18 @@ function invite(event) {
 
     createPeerConnection();
 
-    navigator.mediaDevices.getUserMedia(mediaConstraints)
+    navigator.mediaDevices.getDisplayMedia(mediaConstraints)
     .then(function(localStream) {
         document.getElementById("local_video").srcObject = localStream;
         localStream.getTracks().forEach(track => myPeerConnection.addTrack(track, localStream));
     })
     .catch(handleGetUserMediaError);
+    // navigator.mediaDevices.getUserMedia(mediaConstraints)                                         //DISPLAY MEDIA
+    // .then(function(localStream) {
+    //     document.getElementById("local_video").srcObject = localStream;
+    //     localStream.getTracks().forEach(track => myPeerConnection.addTrack(track, localStream));
+    // })
+    // .catch(handleGetUserMediaError);
 }
 
 function createPeerConnection() {
@@ -90,8 +98,8 @@ function handleICECandidateEvent(event) {
     }
 }
 
-function handleTrackEvent(event) {
-    document.getElementById("recieve_video").srcObject = event.streams[0];
+function handleTrackEvent(event) {                                             //PROBLEM HERE! VAL OF el.srcObject is null??/
+    document.getElementById("received_video").srcObject = event.streams[0];
     document.getElementById("hangup-button").disabled = false;
 }
 
@@ -116,7 +124,7 @@ async function handleVideoAnswerMsg(sdp) {
     await myPeerConnection.setRemoteDescription(desc).catch(reportError);
 }
 
-socket.on('answer-recieved', (sdp) => {
+socket.on('answer-received', (sdp) => {
     handleVideoAnswerMsg(sdp);
 })
 
@@ -131,7 +139,8 @@ function handleVideoOffer(remoteSDP) {
     const remoteDescription = new RTCSessionDescription(remoteSDP); //represents the Debuger's session description
 
     myPeerConnection.setRemoteDescription(remoteDescription).then(function() {
-        return navigator.mediaDevices.getUserMedia(mediaConstraints);
+        // return navigator.mediaDevices.getUserMedia(mediaConstraints);   //DISPLAY MEDIA
+        return navigator.mediaDevices.getDisplayMedia(mediaConstraints);
     })
     .then(function(stream) {
         localStream = stream;
@@ -148,7 +157,7 @@ function handleVideoOffer(remoteSDP) {
     .catch(handleGetUserMediaError);
 }
 
-socket.on('recieved-video-offer', sdp => {
+socket.on('received-video-offer', sdp => {
     handleVideoOffer(sdp);
 })
 
@@ -236,6 +245,7 @@ function closeVideoCall() {
   
     remoteVideo.removeAttribute("src");
     remoteVideo.removeAttribute("srcObject");
+    //remoteVideo.  hide element
     localVideo.removeAttribute("src");
     remoteVideo.removeAttribute("srcObject");
   

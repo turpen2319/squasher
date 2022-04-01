@@ -298,6 +298,14 @@ button.navbar-toggler {
   color:#00B7FF
 }
 
+#local_video {
+  width: 10vw;
+
+}
+
+#received_video {
+  width: 100vw;
+}
 
 
 

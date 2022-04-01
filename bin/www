@@ -38,7 +38,7 @@ io.on('connection', socket => { //listening for new connections
   })
 
   socket.on('video-offer', (sdp, roomId) => {
-    socket.to(roomId).emit('recieved-video-offer', sdp);
+    socket.to(roomId).emit('received-video-offer', sdp);
   })
 
   socket.on('new-ice-candidate', (sdp, roomId) => {
@@ -46,7 +46,7 @@ io.on('connection', socket => { //listening for new connections
   })
 
   socket.on('answer-to-offer', (sdp, roomId) => {
-    socket.to(roomId).emit('answer-recieved', sdp);
+    socket.to(roomId).emit('answer-received', sdp);
   })
 
   socket.on('sent-chat-message', (message, roomId) => { //listening to our sent-chat-message event that was emitted from client side
