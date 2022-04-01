@@ -11,7 +11,7 @@ Post your bugs and wait on replies to fix your code, or join a room and get live
 
 _Home Page (mobile):_
 
-<img src="./screenshots/mobile-home-page.png" width = 100%>
+<img src="./screenshots/mobile-home-page.png" width = 400px>
 
 _Show Question / Answers:_
 
@@ -19,7 +19,7 @@ _Show Question / Answers:_
 
 _Live Screenshare + Chat:_
 
-<img src="./screenshots/squasher-live-page.png" width=400px>
+<img src="./screenshots/squasher-live-page.png" width=100%>
 
 ## Technologies Used
 - WebRTC
