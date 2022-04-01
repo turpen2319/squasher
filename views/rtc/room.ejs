@@ -1,12 +1,25 @@
 <%- include('../partials/rtc-header') -%> 
-<h1>Room ID:</h1>
-<h2><%=roomId%></h2>
 
-<div class="camerabox">
-    <video id="received_video" autoplay></video>
-    <video id="local_video" autoplay muted></video>
+
+<div class="live-container">
+    <div class="camerabox">
+        <video id="received_video" autoplay></video>
+        <!-- <video id="local_video" autoplay muted></video> -->
+    </div>
     <button id="hangup-button" onclick="hangUpCall();" role="button" disabled>
-      Hang Up
+      End Connection
     </button>
+    <div class="chat-container">
+        <div id="message-thread">
+
+        </div>
+        <div id="new-message-container">
+            <form id="send-container">
+              <input type="text" id="message-input">
+              <button type="submit" id="send-button">Send</button>
+            </form>
+        </div>
+    </div>
 </div>
+
 <%- include('../partials/footer') -%> 

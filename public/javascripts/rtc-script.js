@@ -9,32 +9,56 @@ socket.emit('join-room', ROOM_ID, USER_NAME); //sends an event to our server, th
 //10 should be mySDP
 
 
-// socket.on('user-connected', userId => {
-//     console.log('user connected ' + userId); //another user's SDP should replace userId
-// })
 
-
-function openRoom() {
-    //debugger starts a room
-}
 
 
 //debugee joins a room already opened
 //display a button if the userID !== newly joined userID (only room owner can see it)
 socket.on('user-connected', userId => { //server responds to us when some other user joins our room
     const connectBtn = document.createElement('button');
-    const bodyEl = document.querySelector('body');
+    const liveContainer = document.querySelector('.live-container');
     connectBtn.textContent = `Connect with ${userId}`
-    bodyEl.appendChild(connectBtn);
+    connectBtn.classList.add('connect-btn');
+    liveContainer.appendChild(connectBtn);
+
     connectBtn.addEventListener('click', function () {
+        connectBtn.remove()
+
         invite();
     })
 })
 
 
-function kickDebugee() {
-    //room owner forces debugee to leave room
-}
+//----------Chat via socket------------------
+const messageThreadEl = document.getElementById('message-thread');
+const messageFormEl = document.getElementById('send-container');
+const messageInputEl = document.getElementById('message-input');
+
+
+messageFormEl.addEventListener('submit', e => {
+    e.preventDefault(); //we do this to stop the page from refreshing...if it reloads the message could be wiped
+    const message = messageInputEl.value;
+    const sentMessageEl = document.createElement("p");
+    sentMessageEl.textContent = message;
+    sentMessageEl.classList.add('sent-msg');
+    messageThreadEl.appendChild(sentMessageEl);
+    
+    socket.emit('sent-chat-message', message, ROOM_ID) //this sends out ('emits') an event containing 'message' data from our client back to our server 
+    
+
+    messageInputEl.value = '';
+})
+
+
+
+
+socket.on('chat-message', msg => {
+    const newMessageEl = document.createElement("p");
+    newMessageEl.textContent = msg;
+    newMessageEl.classList.add('received-msg');
+    messageThreadEl.appendChild(newMessageEl);
+    console.log(msg);
+})
 
 //-------------------WebRTC---------------------
 
@@ -59,16 +83,10 @@ function invite(event) {
 
     navigator.mediaDevices.getDisplayMedia(mediaConstraints)
     .then(function(localStream) {
-        document.getElementById("local_video").srcObject = localStream;
+        //document.getElementById("local_video").srcObject = localStream; //uncomment if I wanna display local share
         localStream.getTracks().forEach(track => myPeerConnection.addTrack(track, localStream));
     })
     .catch(handleGetUserMediaError);
-    // navigator.mediaDevices.getUserMedia(mediaConstraints)                                         //DISPLAY MEDIA
-    // .then(function(localStream) {
-    //     document.getElementById("local_video").srcObject = localStream;
-    //     localStream.getTracks().forEach(track => myPeerConnection.addTrack(track, localStream));
-    // })
-    // .catch(handleGetUserMediaError);
 }
 
 function createPeerConnection() {
@@ -85,11 +103,6 @@ function createPeerConnection() {
     myPeerConnection.ontrack = handleTrackEvent; //navigator.mediaDevices promise chain in the invite func will trigger this event
     myPeerConnection.onnegotiationneeded = handleNegotiationNeededEvent;
 
-    //only the first three handlers are vital^^
-    // myPeerConnection.onremovetrack = handleRemoveTrackEvent;
-    // myPeerConnection.oniceconnectionstatechange = handleICEConnectionStateChangeEvent;
-    // myPeerConnection.onicegatheringstatechange = handleICEGatheringStateChangeEvent;
-    // myPeerConnection.onsignalingstatechange = handleSignalingStateChangeEvent;
 }
 
 function handleICECandidateEvent(event) {
@@ -144,7 +157,7 @@ function handleVideoOffer(remoteSDP) {
     })
     .then(function(stream) {
         localStream = stream;
-        document.getElementById('local_video').srcObject = localStream;
+        //document.getElementById('local_video').srcObject = localStream; //uncomment to see local
 
         localStream.getTracks().forEach(track => myPeerConnection.addTrack(track, localStream));
     })
@@ -202,15 +215,9 @@ function handleRemoveTrackEvent(event) {
     }
 }
 
-
 function hangUpCall() {
     closeVideoCall();
     socket.emit('hang-up', ROOM_ID)
-    // sendToServer({
-    //   name: myUsername,
-    //   target: targetUsername,
-    //   type: "hang-up"
-    // });
 }
 
 socket.on('hang-up', () => {
@@ -219,7 +226,7 @@ socket.on('hang-up', () => {
 
 function closeVideoCall() {
     var remoteVideo = document.getElementById("received_video");
-    var localVideo = document.getElementById("local_video");
+    //var localVideo = document.getElementById("local_video");
   
     if (myPeerConnection) {
       myPeerConnection.ontrack = null;
@@ -235,9 +242,9 @@ function closeVideoCall() {
         remoteVideo.srcObject.getTracks().forEach(track => track.stop());
       }
   
-      if (localVideo.srcObject) {
-        localVideo.srcObject.getTracks().forEach(track => track.stop());
-      }
+    //   if (localVideo.srcObject) {
+    //     localVideo.srcObject.getTracks().forEach(track => track.stop());
+    //   }
   
       myPeerConnection.close();
       myPeerConnection = null;
@@ -246,7 +253,7 @@ function closeVideoCall() {
     remoteVideo.removeAttribute("src");
     remoteVideo.removeAttribute("srcObject");
     //remoteVideo.  hide element
-    localVideo.removeAttribute("src");
+    //localVideo.removeAttribute("src");
     remoteVideo.removeAttribute("srcObject");
   
     document.getElementById("hangup-button").disabled = true;

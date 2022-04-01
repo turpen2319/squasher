@@ -50,6 +50,7 @@ io.on('connection', socket => { //listening for new connections
   })
 
   socket.on('sent-chat-message', (message, roomId) => { //listening to our sent-chat-message event that was emitted from client side
+    console.log(message);
     socket.to(roomId).emit('chat-message', message) //we emit this 'chat-message' cause that's what even we're listening to on client side
   })
 })
